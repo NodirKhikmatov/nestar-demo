@@ -6,16 +6,21 @@ import { useState } from "react";
 import "../scss/app.scss";
 import "../scss/pc/main.scss";
 import "../scss/mobile/main.scss";
+import client from "../apollo/client";
+import { ApolloProvider } from "../node_modules/@apollo/client/react/context/ApolloProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   // @ts-ignore
   const [theme, setTheme] = useState(createTheme(light));
 
-  // Socket.io, Redux, Mui ...
+  // Socket.io, Redux, Mui,Apollo client ...
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <ApolloProvider client={client}>
+  
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
